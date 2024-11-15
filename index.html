@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surpresa com Corações e Flores</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            background-color: #000; /* Fundo preto inicial */
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            transition: background-color 2s ease, background 2s ease; /* Transição suave do fundo */
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.7); /* Efeito 3D com sombra interna */
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #fff;
+            margin: 0;
+            font-weight: 600;
+            text-shadow: 4px 4px 12px rgba(0, 0, 0, 0.8);
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.3em;
+            cursor: pointer;
+            margin-top: 20px;
+            background-color: #fff;
+            color: #ff66b2;
+            border: 3px solid #ff66b2;
+            border-radius: 50px;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            background-color: #ff66b2;
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        .message {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #fff;
+            display: none; /* Inicialmente escondido */
+            margin-top: 40px;
+            position: relative;
+            z-index: 1;
+            max-width: 90%;
+            font-family: 'Verdana', sans-serif;
+            text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.8);
+        }
+
+        .sub-message {
+            font-size: 1.5em;
+            font-style: italic;
+            color: #fff;
+            margin-top: 20px;
+            font-family: 'Courier New', Courier, monospace;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+            display: none; /* Inicialmente escondido */
+        }
+
+        /* Corações como confetes flutuando */
+        .heart {
+            position: absolute;
+            font-size: 50px;
+            animation: floatHearts 4s ease-out infinite;
+            opacity: 0;
+            pointer-events: none; /* Impede interação com o clique */
+        }
+
+        @keyframes floatHearts {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) scale(0.5);
+                opacity: 0.5;
+            }
+        }
+
+        /* Efeito de flores de cerejeira flutuando */
+        .flower {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/a/a0/Cherry_blossom_flower.svg');
+            background-size: cover;
+            animation: floatFlowers 12s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes floatFlowers {
+            0% {
+                transform: translateY(0) rotate(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Cor de fundo rosa após clicar */
+        .clicked {
+            background: linear-gradient(135deg, #ff66b2, #ff3385, #ff1a6d); /* Mantém o gradiente após o clique */
+            transition: background 2s ease-in-out; /* Transição suave para o gradiente */
+        }
+
+        /* Responsividade */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .message {
+                font-size: 1.6em;
+            }
+
+            button {
+                padding: 12px 25px;
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>SABE POR QUE A LUA BRILHA TANTO?</h1>
+    <button onclick="mostrarMensagem()">CLIQUE AQUI E DESCUBRA</button>
+    <div class="message" id="mensagem">
+        PARA COMPETIR COM O BRILHO DO SEU SORRISO E PERDER PARA O BRILHO DE TEUS OLHOS
+    </div>
+    <div class="sub-message" id="subMensagem">
+        com amor, do seu golden, para minha lua
+    </div>
+
+    <script>
+        function mostrarMensagem() {
+            // Adicionar a classe para mudar o fundo para rosa
+            document.body.classList.add("clicked");
+
+            // Exibir a mensagem principal após o clique
+            document.getElementById("mensagem").style.display = "block";
+
+            // Exibir a mensagem secundária em letra cursiva
+            document.getElementById("subMensagem").style.display = "block";
+
+            // Criar várias flores de cerejeira flutuando
+            for (let i = 0; i < 30; i++) {
+                const flower = document.createElement("div");
+                flower.classList.add("flower");
+                flower.style.left = `${Math.random() * 100}vw`;
+                flower.style.animationDelay = `${Math.random() * 5}s`;
+                flower.style.top = `${Math.random() * 100}vh`;
+                document.body.appendChild(flower);
+
+                // Aumentando a opacidade para tornar as flores visíveis após a animação
+                setTimeout(() => {
+                    flower.style.opacity = 1;
+                }, 0);
+            }
+
+            // Criar partículas de corações flutuando como confetes
+            for (let i = 0; i < 50; i++) {
+                const heart = document.createElement("div");
+                heart.classList.add("heart");
+                heart.textContent = "❤️";  // Emoji do coração
+                heart.style.left = `${Math.random() * 100}vw`;
+                heart.style.top = `${Math.random() * 100}vh`;
+                heart.style.animationDelay = `${Math.random() * 3}s`;
+                document.body.appendChild(heart);
+
+                // Aumentando a opacidade para tornar os corações visíveis após a animação
+                setTimeout(() => {
+                    heart.style.opacity = 1;
+                }, 0);
+            }
+        }
+    </script>
+
+</body>
+</html>
